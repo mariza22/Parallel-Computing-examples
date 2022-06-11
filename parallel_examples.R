@@ -1,34 +1,31 @@
 #################### 1st example ###########################
 
 wait.then.square           <- function(xx) Sys.sleep(5)
-system.time( lapply(1:2, wait.then.square))
+system.time( lapply(1:2, wait.then.square))                                                # serial computing 
 
 ## Define example function and the global variable 
+system.time(serial.output <- lapply(1:2,function(xx) {return( wait.then.square(xx) )}) )
 
 library(parallel)
 
-system.time(serial.output <- lapply(1:2,function(xx) {return( wait.then.square(xx) )}) )
-
 start_time                <- Sys.time()
-cl                        <- makeCluster( detectCores())
-par.setup                 <- parLapply( cl, 1:length(cl),function(xx) {c(library(MASS))} ) # all the libraries you use
+cl                        <- makeCluster( detectCores())                                   # we use all the available cores 
+par.setup                 <- parLapply( cl, 1:length(cl),function(xx) {c(library(MASS))} ) # all the libraries we use
 
 clusterExport(cl,"wait.then.square")
-par.output                <- parLapply(cl,1:2,function(xx) return(wait.then.square(xx)) ) # all the functions you use
+par.output                <- parLapply(cl,1:2,function(xx) return(wait.then.square(xx)) )  # all the functions we use
 stopCluster(cl)
 Sys.time() - start_time
 
 ################## 2nd example  #######################
 
-#functions that I use
+# functions that we use
 
 wait.then.square  <- function(xx){
   Sys.sleep(1);
   xx^2 } 
-
-
+                                       
 (a.global.variable <- Diagonal(3) )
-
 
 require(parallel)
 library(parallel)
@@ -71,6 +68,4 @@ athletes              <- parLapply(cl, 1:total_athl, function( ID = xx, EM = EM1
                                                                splines = test$datamat) { ASI(ID, EM, data_global1, data_ID, data_Perf, splines)} )
 stopCluster(cl)
 Sys.time()- start_time2
-
-
-
+                                       
