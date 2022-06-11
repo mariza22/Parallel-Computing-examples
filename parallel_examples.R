@@ -36,7 +36,6 @@ library(Matrix)
 cl                        <- makeCluster( 4 )
 
 ## Step 2: Load the necessary R package(s)
-
 par.setup                 <- parLapply( cl, 1:length(cl), function(xx) {require(Matrix)})
 
 ## Step 3: Distribute the necessary R objects 
