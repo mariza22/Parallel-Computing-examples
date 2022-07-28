@@ -1,4 +1,7 @@
-#################### 1st example ###########################
+##############################################################################
+## In this repository there are three examples that make use of the parallel #
+## computing and present the structure of it in each case.             #######
+#################### 1st example #############################################
 
 wait.then.square           <- function(xx) Sys.sleep(5)
 system.time( lapply(1:2, wait.then.square))                                                # serial computing 
